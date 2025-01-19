@@ -1,5 +1,6 @@
 import os
 import xml.etree.ElementTree as ET
+from datetime import datetime
 
 def parse_version_from_lua(filepath):
     """
@@ -24,10 +25,16 @@ def update_index(root_folder, index_file):
         tree = ET.parse(index_file)
         root = tree.getroot()
     else:
-        root = ET.Element("index", version="1")
+        root = ET.Element("index", version="1", commit="", name="HONEYHILL Repository")
 
     # Keep track of processed items
     processed_items = {}
+
+    # Define categories
+    categories = {
+        "Scripts": [],
+        "Themes": []
+    }
 
     # Scan the root folder for Lua scripts and Reaper themes
     for dirpath, _, filenames in os.walk(root_folder):
@@ -38,55 +45,42 @@ def update_index(root_folder, index_file):
             if filename.endswith(".lua"):
                 # Handle Lua scripts
                 raw_link = f"https://raw.githubusercontent.com/honeyhill/reaper/main/{relative_path}"
-                tag = "script"
                 name = os.path.splitext(filename)[0]
-                description = f"Description for {filename}"
+                description = f"A script to {name.replace('_', ' ').lower()}"
                 version = parse_version_from_lua(filepath)
+                categories["Scripts"].append((name, description, version, raw_link))
+
             elif filename.endswith(".ReaperThemeZip"):
                 # Handle Reaper themes
                 raw_link = f"https://raw.githubusercontent.com/honeyhill/reaper/main/{relative_path}"
-                tag = "theme"
                 name = os.path.splitext(filename)[0]
-                description = f"Color theme for Reaper: {name}"
-                version = "1.0"
+                description = f"A custom theme for Reaper: {name}"
+                categories["Themes"].append((name, description, "1.0", raw_link))
+
+    # Update categories in the index.xml
+    for category_name, items in categories.items():
+        category_element = root.find(f"category[@name='{category_name}']")
+        if not category_element:
+            category_element = ET.SubElement(root, "category", name=category_name)
+
+        for name, description, version, raw_link in items:
+            reapack_element = category_element.find(f"reapack[@name='{name}']")
+
+            if reapack_element:
+                # Update existing entry if needed
+                version_element = reapack_element.find("version")
+                if version_element is not None and version_element.get("name") != version:
+                    version_element.set("name", version)
+                    version_element.set("time", datetime.utcnow().isoformat() + "Z")
             else:
-                continue
-
-            # Check if the item is already in the index
-            found = False
-            for item in root.findall(tag):
-                link = item.find("link").text
-                if link == raw_link:
-                    if tag == "script":
-                        version_element = item.find("version")
-                        if version_element.text != version:
-                            version_element.text = version
-                    found = True
-                    processed_items[raw_link] = True
-                    break
-
-            if not found:
-                # Add new item entry
-                item_element = ET.SubElement(root, tag)
-                ET.SubElement(item_element, "author").text = "HONEYHILL"
-                ET.SubElement(item_element, "name").text = name
-                ET.SubElement(item_element, "description").text = description
-                ET.SubElement(item_element, "version").text = version
-                ET.SubElement(item_element, "link").text = raw_link
-                ET.SubElement(item_element, "changelog").text = "Initial release"
-
-                processed_items[raw_link] = True
-
-    # Remove items from the index if they no longer exist in the folder
-    for tag in ["script", "theme"]:
-        for item in root.findall(tag):
-            link = item.find("link").text
-            if link not in processed_items:
-                root.remove(item)
+                # Add new entry
+                reapack_element = ET.SubElement(category_element, "reapack", name=name, type="script" if category_name == "Scripts" else "theme", desc=description)
+                version_element = ET.SubElement(reapack_element, "version", name=version, author="HONEYHILL", time=datetime.utcnow().isoformat() + "Z")
+                ET.SubElement(version_element, "source", main="main").text = raw_link
 
     # Write the updated index.xml back to file
     tree = ET.ElementTree(root)
-    tree.write(index_file, encoding="UTF-8", xml_declaration=True)
+    tree.write(index_file, encoding="utf-8", xml_declaration=True)
 
 # Example usage
 root_folder = "./"  # Adjust to include both Lua script and theme folder
