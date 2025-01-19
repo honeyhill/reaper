@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<index version="1">
+  <script>
+    <author>HONEYHILL</author>
+    <name>Deselect Odd Notes</name>
+    <description>Deselect odd notes in MIDI editor</description>
+    <version>1.0</version>
+    <link>https://raw.githubusercontent.com/YourGitHubUsername/ReaperScripts/main/MIDI_Scripts/deselect_odd_notes.lua</link>
+    <changelog>
+      Initial release
+    </changelog>
+  </script>
+
+  <script>
+    <author>YourName</author>
+    <name>Deselect Even Notes</name>
+    <description>Deselect even notes in MIDI editor</description>
+    <version>1.0</version>
+    <link>https://raw.githubusercontent.com/YourGitHubUsername/ReaperScripts/main/MIDI_Scripts/deselect_even_notes.lua</link>
+    <changelog>
+      Initial release
+    </changelog>
+  </script>
+</index>
