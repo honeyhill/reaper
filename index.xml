@@ -1,12 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="HONEYHILL" commit="">
+<?xml version='1.0' encoding='utf-8'?>
+<index version="1" commit="" name="HONEYHILL">
   <category name="MIDI Editing">
-    <reapack name="Deselect Odd Notes.lua" type="script">
-      <metadata>
-        <description></description>
-      </metadata>
-      <version name="1.0" author="HONEYHILL" time="2025-01-19T10:00:00Z">
-        <source main="main midi_editor" file="deselect_odd_notes.lua">https://raw.githubusercontent.com/honeyhill/reaper/main/MIDI_Scripts/deselect_odd_notes.lua</source>
+    <reapack name="deselect_even_notes.lua" type="script" desc="A script to deselect even notes.lua">
+      <version name="1.0" author="HONEYHILL" time="2025-01-19T11:39:17.179495Z">
+        <source main="main midi_editor midi_inlineeditor" file="deselect_even_notes.lua">https://raw.githubusercontent.com/honeyhill/reaper/main/deselect_even_notes.lua</source>
+      </version>
+    </reapack>
+    <reapack name="deselect_odd_notes.lua" type="script" desc="A script to deselect odd notes.lua">
+      <version name="1.0" author="HONEYHILL" time="2025-01-19T11:39:17.179753Z">
+        <source main="main midi_editor midi_inlineeditor" file="deselect_odd_notes.lua">https://raw.githubusercontent.com/honeyhill/reaper/main/deselect_odd_notes.lua</source>
       </version>
     </reapack>
   </category>

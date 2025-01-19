@@ -25,15 +25,14 @@ def update_index(root_folder, index_file):
         tree = ET.parse(index_file)
         root = tree.getroot()
     else:
-        root = ET.Element("index", version="1", commit="", name="HONEYHILL Repository")
+        root = ET.Element("index", version="1", commit="", name="HONEYHILL")
 
     # Keep track of processed items
     processed_items = {}
 
     # Define categories
     categories = {
-        "Scripts": [],
-        "Themes": []
+        "MIDI Editing": []
     }
 
     # Scan the root folder for Lua scripts and Reaper themes
@@ -45,17 +44,10 @@ def update_index(root_folder, index_file):
             if filename.endswith(".lua"):
                 # Handle Lua scripts
                 raw_link = f"https://raw.githubusercontent.com/honeyhill/reaper/main/{relative_path}"
-                name = os.path.splitext(filename)[0]
+                name = os.path.splitext(filename)[0] + ".lua"
                 description = f"A script to {name.replace('_', ' ').lower()}"
                 version = parse_version_from_lua(filepath)
-                categories["Scripts"].append((name, description, version, raw_link))
-
-            elif filename.endswith(".ReaperThemeZip"):
-                # Handle Reaper themes
-                raw_link = f"https://raw.githubusercontent.com/honeyhill/reaper/main/{relative_path}"
-                name = os.path.splitext(filename)[0]
-                description = f"A custom theme for Reaper: {name}"
-                categories["Themes"].append((name, description, "1.0", raw_link))
+                categories["MIDI Editing"].append((name, description, version, raw_link))
 
     # Update categories in the index.xml
     for category_name, items in categories.items():
@@ -74,15 +66,15 @@ def update_index(root_folder, index_file):
                     version_element.set("time", datetime.utcnow().isoformat() + "Z")
             else:
                 # Add new entry
-                reapack_element = ET.SubElement(category_element, "reapack", name=name, type="script" if category_name == "Scripts" else "theme", desc=description)
+                reapack_element = ET.SubElement(category_element, "reapack", name=name, type="script", desc=description)
                 version_element = ET.SubElement(reapack_element, "version", name=version, author="HONEYHILL", time=datetime.utcnow().isoformat() + "Z")
-                ET.SubElement(version_element, "source", main="main").text = raw_link
+                ET.SubElement(version_element, "source", main="main midi_editor midi_inlineeditor", file=name).text = raw_link
 
     # Write the updated index.xml back to file
     tree = ET.ElementTree(root)
     tree.write(index_file, encoding="utf-8", xml_declaration=True)
 
 # Example usage
-root_folder = "./"  # Adjust to include both Lua script and theme folder
+root_folder = "./MIDI_Scripts"  # Path to your local scripts folder
 index_file = "./index.xml"
 update_index(root_folder, index_file)
