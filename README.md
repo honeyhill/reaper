@@ -3,6 +3,6 @@ Reaper Scripts &amp; Customizations by HONEYHILL
 
 ## Add Repository via ReaPack: 
 
-    ```bash
-        https://raw.githubusercontent.com/honeyhill/reaper/main/index.xml 
-    ```
+    
+    https://raw.githubusercontent.com/honeyhill/reaper/main/index.xml 
+    
