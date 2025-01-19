@@ -45,9 +45,9 @@ def update_index(root_folder, index_file):
                 # Handle Lua scripts
                 raw_link = f"https://raw.githubusercontent.com/honeyhill/reaper/main/{relative_path}"
                 name = os.path.splitext(filename)[0] + ".lua"
-                description = f"A script to {name.replace('_', ' ').lower()}"
+                description = f"deselect all odd numbered notes"
                 version = parse_version_from_lua(filepath)
-                categories["MIDI Editing"].append((name, description, version, raw_link))
+                categories["MIDI Editing"].append((name, description, version, raw_link, relative_path))
 
     # Update categories in the index.xml
     for category_name, items in categories.items():
@@ -55,7 +55,7 @@ def update_index(root_folder, index_file):
         if not category_element:
             category_element = ET.SubElement(root, "category", name=category_name)
 
-        for name, description, version, raw_link in items:
+        for name, description, version, raw_link, relative_path in items:
             reapack_element = category_element.find(f"reapack[@name='{name}']")
 
             if reapack_element:
@@ -66,15 +66,17 @@ def update_index(root_folder, index_file):
                     version_element.set("time", datetime.utcnow().isoformat() + "Z")
             else:
                 # Add new entry
-                reapack_element = ET.SubElement(category_element, "reapack", name=name, type="script", desc=description)
+                reapack_element = ET.SubElement(category_element, "reapack", name=name, type="script")
+                metadata_element = ET.SubElement(reapack_element, "metadata")
+                ET.SubElement(metadata_element, "description", name=description)
                 version_element = ET.SubElement(reapack_element, "version", name=version, author="HONEYHILL", time=datetime.utcnow().isoformat() + "Z")
-                ET.SubElement(version_element, "source", main="main midi_editor midi_inlineeditor", file=name).text = raw_link
+                ET.SubElement(version_element, "source", main="main midi_editor midi_inlineeditor", file=os.path.basename(relative_path)).text = raw_link
 
     # Write the updated index.xml back to file
     tree = ET.ElementTree(root)
     tree.write(index_file, encoding="utf-8", xml_declaration=True)
 
 # Example usage
-root_folder = "./MIDI_Scripts"  # Path to your local scripts folder
+root_folder = "./"  # Root directory to scan for all scripts
 index_file = "./index.xml"
 update_index(root_folder, index_file)
