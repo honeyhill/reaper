@@ -1,2 +1,40 @@
-<?xml version='1.0' encoding='utf-8'?>
-<index version="1" commit="" name="HONEYHILL Repository"><category name="Scripts"><reapack name="deselect_even_notes" type="script" desc="A script to deselect even notes"><version name="1.0" author="HONEYHILL" time="2025-01-19T10:47:51.343814Z"><source main="main">https://raw.githubusercontent.com/honeyhill/reaper/main/MIDI_Scripts/deselect_even_notes.lua</source></version></reapack><reapack name="deselect_odd_notes" type="script" desc="A script to deselect odd notes"><version name="1.0" author="HONEYHILL" time="2025-01-19T10:47:51.344099Z"><source main="main">https://raw.githubusercontent.com/honeyhill/reaper/main/MIDI_Scripts/deselect_odd_notes.lua</source></version></reapack></category><category name="Themes" /></index>
+<?xml version="1.0" encoding="utf-8"?>
+<index version="1" name="HONEYHILL Repository" commit="">
+  <category name="MIDI Editing">
+    <reapack name="Deselect Odd Notes" type="script" desc="A script to deselect odd notes">
+      <metadata>
+        <description><![CDATA[A script to deselect odd notes in the MIDI editor]]></description>
+      </metadata>
+      <version name="1.0" author="HONEYHILL" time="2025-01-19T10:47:51.343814Z">
+        <changelog><![CDATA[
+        - Initial release
+        ]]></changelog>
+        <source main="main">https://raw.githubusercontent.com/honeyhill/reaper/main/MIDI_Scripts/deselect_odd_notes.lua</source>
+      </version>
+    </reapack>
+    <reapack name="Deselect Even Notes" type="script" desc="A script to deselect even notes">
+      <metadata>
+        <description><![CDATA[A script to deselect even notes in the MIDI editor]]></description>
+      </metadata>
+      <version name="1.0" author="HONEYHILL" time="2025-01-19T10:47:51.344099Z">
+        <changelog><![CDATA[
+        - Initial release
+        ]]></changelog>
+        <source main="main">https://raw.githubusercontent.com/honeyhill/reaper/main/MIDI_Scripts/deselect_even_notes.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="Themes">
+    <reapack name="Reapertips Theme" type="theme" desc="A custom theme for Reaper">
+      <metadata>
+        <description><![CDATA[A simple yet elegant theme for Reaper]]></description>
+      </metadata>
+      <version name="1.0" author="HONEYHILL" time="2025-01-19T11:00:00.000000Z">
+        <changelog><![CDATA[
+        - Initial release
+        ]]></changelog>
+        <source main="main">https://raw.githubusercontent.com/honeyhill/reaper/main/Themes/Reapertips%20Theme.ReaperThemeZip</source>
+      </version>
+    </reapack>
+  </category>
+</index>
