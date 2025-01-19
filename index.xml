@@ -1,16 +1,2 @@
 <?xml version='1.0' encoding='utf-8'?>
-<index version="1" commit="" name="HONEYHILL Repository">
-    <category name="Scripts">
-        <reapack name="deselect_even_notes" type="script" desc="A script to deselect even notes">
-            <version name="1.0" author="HONEYHILL" time="2025-01-19T10:40:30.833428Z">
-                <source main="main">https://raw.githubusercontent.com/honeyhill/reaper/main/MIDI_Scripts/deselect_even_notes.lua</source>
-            </version>
-        </reapack>
-        <reapack name="deselect_odd_notes" type="script" desc="A script to deselect odd notes">
-            <version name="1.0" author="HONEYHILL" time="2025-01-19T10:40:30.833671Z">
-                <source main="main">https://raw.githubusercontent.com/honeyhill/reaper/main/MIDI_Scripts/deselect_odd_notes.lua</source>
-            </version>
-        </reapack>
-    </category>
-    <category name="Themes" />
-</index>
+<index version="1" commit="" name="HONEYHILL Repository"><category name="Scripts"><reapack name="deselect_even_notes" type="script" desc="A script to deselect even notes"><version name="1.0" author="HONEYHILL" time="2025-01-19T10:47:51.343814Z"><source main="main">https://raw.githubusercontent.com/honeyhill/reaper/main/MIDI_Scripts/deselect_even_notes.lua</source></version></reapack><reapack name="deselect_odd_notes" type="script" desc="A script to deselect odd notes"><version name="1.0" author="HONEYHILL" time="2025-01-19T10:47:51.344099Z"><source main="main">https://raw.githubusercontent.com/honeyhill/reaper/main/MIDI_Scripts/deselect_odd_notes.lua</source></version></reapack></category><category name="Themes" /></index>
